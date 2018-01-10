@@ -81,6 +81,7 @@ class DirectoryTree {
             root.firstName = firstName;
             root.lastName = lastName;
             root.number = number;
+            System.out.println("1 " + firstName + "," + lastName + "," + number);
         }
         else // Root isn't empty so we find where to put the name
         {
@@ -92,9 +93,11 @@ class DirectoryTree {
                     if (temp.right == null) // Add a new Node to the right
                     {
                         temp.right = new Node(firstName,lastName, number, null, null,null);
-                        Display(root);
+                        System.out.println("2 " + firstName + "," + lastName + "," + number);
                         return;
-                    } else //Moves temp down the right of the tree
+
+                    }
+                    else //Moves temp down the right of the tree
                     {
                         temp = temp.right;
                     }
@@ -104,7 +107,7 @@ class DirectoryTree {
                     if (temp.left == null) // Add a new Node to the left
                     {
                         temp.left = new Node(firstName,lastName, number, null, null,null);
-                        Display(root);
+                        System.out.println("3 " + firstName + "," + lastName + "," + number);
                         return;
                     }
                     else // Moves temp down to the left of the tree
@@ -114,8 +117,30 @@ class DirectoryTree {
                 }
                 else // Same name means add number
                 {
-                    temp.list = new Node(firstName,lastName,number,null,null,null);
-                    return;
+                    if(temp.list == null)
+                    {
+                        temp.list = new Node(firstName,lastName,number,null,null,null);
+                        System.out.println("4 " + firstName + "," + lastName + "," + number);
+                        return;
+                    }
+                    else
+                    {
+                        Node track = temp;
+                        while(track!=null)
+                        {
+                            if(track.list == null)
+                            {
+                                track.list = new Node(firstName,lastName,number,null,null,null);
+                                System.out.println("5 " + firstName + "," + lastName + "," + number);
+                                return;
+                            }
+                            else
+                            {
+                                System.out.println("I went through here");
+                                track = track.list;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -123,58 +148,28 @@ class DirectoryTree {
     }
 
 
-    public void find(String firstName,String lastName) // Finds the person corresponding to the name
+    public void find(String firstName, String lastName) // Finds the person corresponding to the name
     {
-        Node temp = root;
-        if(isEmpty(temp)) // If empty tree just end
+        if(isEmpty(root))
         {
-            return;
+            System.out.println("The tree is empty");
         }
-        while(true)
+        else
         {
+            Node temp = root;
             int test = firstName.compareTo(temp.firstName);
-            int test2 = lastName.compareTo(temp.lastName);
-            if(test==0)
-            {
-                if(temp.list == null || temp.lastName == lastName)
-                {
-                    System.out.println(temp.firstName);
-                    System.out.println(temp.lastName);
-                    System.out.println(temp.number);
-                    return;
-                }
-                else
-                {
-                    Node tracker = temp;
-                    //System.out.println(tracker.firstName);
-                    //System.out.println(tracker.lastName);
-                    //System.out.println(tracker.number);
-                    while(tracker!=null)
-                    {
-                        if(tracker.list==null)
-                        {
-                            System.out.println(tracker.firstName);
-                            System.out.println(tracker.lastName);
-                            System.out.println(tracker.number);
-                            return;
-                        }
-                        else
-                        {
-                            System.out.println(tracker.firstName);
-                            System.out.println(tracker.lastName);
-                            System.out.println(tracker.number);
-                            tracker = tracker.list;
-                        }
-                    }
-                }
-            }
-            else if(test<0) // Go left
+
+            if(test<0) // Go left
             {
                 temp = temp.left;
             }
-            else // Go right
+            else if(test>0) // Go right
             {
                 temp = temp.right;
+            }
+            else // We found it
+            {
+                System.out.println("Found " + "," + temp.firstName + "," + temp.lastName + "," + temp.number);
             }
         }
     }
@@ -196,7 +191,7 @@ class Test
         Test.put("Mike","B",2);
         Test.put("Mike","H",29);
         Test.put("Kid","Rock",17);
-        //Test.find("Mike","H");
+        Test.find("Mike");
 
     }
 
