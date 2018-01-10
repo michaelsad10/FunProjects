@@ -167,9 +167,30 @@ class DirectoryTree {
             {
                 temp = temp.right;
             }
-            else // We found it
+            else // We found the first name
             {
-                System.out.println("Found " + "," + temp.firstName + "," + temp.lastName + "," + temp.number);
+               if(temp.lastName.equals(lastName))
+               {
+                   System.out.println("Found 1 " + "," + temp.firstName + "," + temp.lastName + "," + temp.number);
+               }
+               else
+               {
+                   Node track = temp;
+                   while(track!=null)
+                   {
+                       if(track.lastName.equals(lastName))
+                       {
+                           System.out.println("Found 2 " + track.firstName + "," + track.lastName + "," + track.number);
+                           return;
+                       }
+                       else
+                       {
+                           System.out.println("I went through here");
+                           track = track.list;
+                       }
+                   }
+               }
+
             }
         }
     }
@@ -191,7 +212,9 @@ class Test
         Test.put("Mike","B",2);
         Test.put("Mike","H",29);
         Test.put("Kid","Rock",17);
-        Test.find("Mike");
+        Test.put("Kid", "Rock",30);
+        Test.put("Mike", "D",129);
+        Test.find("Mike", "D");
 
     }
 
