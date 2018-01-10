@@ -1,5 +1,7 @@
-class DirectoryTree {
-    private class Node {
+class DirectoryTree
+{
+    private class Node
+    {
         String firstName;
         String lastName;
         int number;
